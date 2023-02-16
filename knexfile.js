@@ -5,9 +5,9 @@ module.exports = {
   connection: {
     host: 'localhost',
     port: 3306,
-    user: 'seu_usuario',
-    password: 'sua_senha',
-    database: 'staart-db',
+    user: 'staart',
+    password: 'staart',
+    database: 'Cursos',
   },
   seeds: {
     directory: path.resolve(__dirname, 'src', 'database', 'seeds'),
