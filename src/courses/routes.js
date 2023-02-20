@@ -14,7 +14,8 @@ const { coursesRepository } = require('./repository/index')
 
 const CreateSchemaCourse = {
   body: Joi.objetc({
-    
+    thumb: Joi.string.notNullable(),
+    description: Joi.string.max(1000).nullable()
   })
 }
 
