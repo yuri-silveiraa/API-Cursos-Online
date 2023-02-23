@@ -1,14 +1,30 @@
-const express = require('express');
+const express = require('express')
 
-const app = express();
-app.use(express.json());
+// const hello = require('./hello/routes')
+const courses = require('./courses/routes')
+// const users = require('./users/routes')
 
-app.get('/', (_, res) => {
-  return res.json({
-    message: 'Staart API'
+//const logger = require('./middlewares/logger')
+//const errorHandler = require('./middlewares/error')
+
+const app = express()
+const router = express.Router()
+
+router.use(express.json())
+router.use(logger())
+router.use('/hello', hello)
+router.use('/courses', courses)
+router.use('/users', users)
+
+router.use(errorHandler())
+
+app.use('/api', router)
+
+app
+  .listen(3000, '0.0.0.0', () => {
+    console.log('Server started')
   })
-});
-
-app.listen(3333, () => {
-  console.log('API executando na porta 3333!')
-});
+  .once('error', (error) => {
+    console.error(error)
+    process.exit(1)
+  })
