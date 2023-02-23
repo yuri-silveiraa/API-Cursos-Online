@@ -4,21 +4,22 @@ const express = require('express')
 const courses = require('./courses/routes')
 // const users = require('./users/routes')
 
-//const logger = require('./middlewares/logger')
-//const errorHandler = require('./middlewares/error')
+//const docs = require('./middlewares/docs')
+const logger = require('./middlewares/logger')
+const errorHandler = require('./middlewares/error')
 
 const app = express()
 const router = express.Router()
 
 router.use(express.json())
 router.use(logger())
-router.use('/hello', hello)
 router.use('/courses', courses)
-router.use('/users', users)
+// router.use('/users', users)
 
 router.use(errorHandler())
 
 app.use('/api', router)
+//app.use('/docs', docs)
 
 app
   .listen(3000, '0.0.0.0', () => {

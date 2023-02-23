@@ -13,10 +13,10 @@ const { coursesRepository } = require('./repository/index')
 // Criar um curso 
 
 const CreateSchemaCourse = {
-  body: Joi.objetc({
-    thumb: Joi.string.notNullable(),
-    description: Joi.string.max(1000).nullable(),
-    instructor: Joi.string.notNullable()
+  body: Joi.object({
+    thumb: Joi.string().required(),
+    description: Joi.string().max(1000),
+    instructor: Joi.string()
   })
 }
 
@@ -43,3 +43,5 @@ router.delete('/delete', async (req, res) =>{})
 // Acessar um curso 
 
 router.get('/:id', async (req, res) =>{})
+
+module.exports = router;
