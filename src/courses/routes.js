@@ -7,8 +7,8 @@ const validate = require('../middlewares/validate')
 
 const router = Router()
 
-const { coursesRepository } = require('./repository/index')
-
+const { coursesRepository } = require('./repository')
+const repository = coursesRepository()
 
 // Criar um curso 
 
@@ -42,6 +42,9 @@ router.delete('/delete', async (req, res) =>{})
 
 // Acessar um curso 
 
-router.get('/:id', async (req, res) =>{})
+router.get('/', async (req, res) =>{repository
+  .list()
+  .then(courses => res.status(200).send({ courses }))
+})
 
 module.exports = router;

@@ -1,19 +1,3 @@
-const path = require('node:path');
+const { config : database } = require('./src/config/index')
 
-module.exports = {
-  client: 'mysql2',
-  connection: {
-    host: 'localhost',
-    port: 3306,
-    user: 'staart',
-    password: 'staart',
-    database: 'Cursos',
-  },
-  seeds: {
-    directory: path.resolve(__dirname, 'src', 'database', 'seeds'),
-  },
-  migrations: {
-    directory: path.resolve(__dirname, 'src', 'database', 'migrations')
-  },
-  useNullAsDefault: true
-};
+module.exports = database

@@ -4,19 +4,19 @@ const { join } = require('path')
 const { load: loadYaml } = require('js-yaml')
 
 const immutable = Object.freeze
-
+/*
 const loadOpenApiJson = () => {
   const openApiPath = join(__dirname, '..', '..', 'docs', 'openapi.yml')
   const openApiFileContent = readFileSync(openApiPath)
   return loadYaml(openApiFileContent)
-}
+} 
 
 const swagger = immutable({
   document: loadOpenApiJson(),
   options: immutable({
     explorer: false,
   }),
-})
+})*/
 
 const jwt = immutable({
   secret: 'shhhh',
@@ -48,7 +48,6 @@ const database = immutable({
 
 module.exports = immutable({
   database,
-  swagger,
   jwt,
   encryption
 })
