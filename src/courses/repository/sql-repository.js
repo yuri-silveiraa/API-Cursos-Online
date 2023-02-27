@@ -3,13 +3,13 @@ const { knex: Knex } = require('knex')
 const { database: config } = require('../../config/')
 const { NotFoundError, ConflictError } = require('../../errors')
 
-const handleNotFound = id => ([title]) =>
-  title ?? Promise.reject(new NotFoundError({ resourceName: 'title', resourceId: id }))
+const handleNotFound = id => ([course]) =>
+  course ?? Promise.reject(new NotFoundError({ resourceName: 'Course', resourceId: id }))
 
 const handleUniqueUsernameError = title => error =>
   Promise.reject(
     error.code === 'ER_DUP_ENTRY'
-      ? new ConflictError(`User with username '${title}' already registered`)
+      ? new ConflictError(`Course with title '${title}' already registered`)
       : error
   )
 
@@ -18,7 +18,7 @@ const SQLRepository = () => {
   
     const list = () =>
       knex
-        .select('title')
+        .select('*')
         .from('courses')
         .then()
   
@@ -29,20 +29,20 @@ const SQLRepository = () => {
         .where({ id })
         .then(handleNotFound(id))
   
-    const insert = (courses) =>
+    const insert = (course) =>
       knex.transaction(tx =>
         knex('courses')
-          .insert(courses)
+          .insert(course)
           .then(([id]) => get(id, tx))
-          .catch(handleUniqueUsernameError(courses.title))
+          .catch(handleUniqueUsernameError(course.title))
       )
   
-    const update = user =>
+    const update = course =>
       knex.transaction(tx =>
         knex('courses')
-          .where({ id: user.id })
-          .update(user)
-          .then(() => get(user.id, tx))
+          .where({ id: course.id })
+          .update(course)
+          .then(() => get(course.id, tx))
       )
   
     const del = id =>

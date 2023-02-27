@@ -17,5 +17,12 @@ class DomainError extends Error {
         this.validations = validations
       }
   }
+
+  class ConflictError extends DomainError {
+  }
   
-  module.exports = { ValidationError, NotFoundError }
+  module.exports = { 
+    ValidationError,
+    NotFoundError,
+    ConflictError
+   }
