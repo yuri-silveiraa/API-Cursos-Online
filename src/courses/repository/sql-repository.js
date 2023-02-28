@@ -1,17 +1,10 @@
 const { knex: Knex } = require('knex')
 
 const { database: config } = require('../../config/')
-const { NotFoundError, ConflictError } = require('../../errors')
+const { NotFoundError } = require('../../errors')
 
-const handleNotFound = id => ([course]) =>
-  course ?? Promise.reject(new NotFoundError({ resourceName: 'Course', resourceId: id }))
-
-const handleUniqueUsernameError = title => error =>
-  Promise.reject(
-    error.code === 'ER_DUP_ENTRY'
-      ? new ConflictError(`Course with title '${title}' already registered`)
-      : error
-  )
+const handleNotFound = id => ([journey_id]) =>
+journey_id ?? Promise.reject(new NotFoundError({ resourceName: 'journey_id', resourceId: id }))
 
 const SQLRepository = () => {
     const knex = Knex(config)
@@ -19,34 +12,41 @@ const SQLRepository = () => {
     const list = () =>
       knex
         .select('*')
+        .from('journeys_courses')
+        .then()
+    
+    const courseId = () => 
+      knex
+        .select('id')
         .from('courses')
         .then()
-  
-    const get = (id, transaction = knex) =>
-      transaction
-        .select('*')
-        .from('courses')
-        .where({ id })
-        .then(handleNotFound(id))
+   
+    const get = (journey_id) =>
+      knex('journeys_courses')
+        .join('courses', 'journeys_courses.course_id','=', 'courses.id')
+        .where('courses.id', '=', courseId)  
+        .select('courses.*')
+        .then(handleNotFound(journey_id))
+
+
   
     const insert = (course) =>
-      knex.transaction(tx =>
-        knex('courses')
-          .insert(course)
-          .then(([id]) => get(id, tx))
-          .catch(handleUniqueUsernameError(course.title))
+    knex.transaction(tx => 
+      knex('journeys_courses')
+        .insert(course)
+        .then(([id]) =>  get(id, tx))
       )
   
     const update = course =>
       knex.transaction(tx =>
-        knex('courses')
+        knex('journeys_courses')
           .where({ id: course.id })
           .update(course)
           .then(() => get(course.id, tx))
       )
   
     const del = id =>
-      knex('courses')
+      knex('journeys_courses')
         .where({ id })
         .delete()
         .then()

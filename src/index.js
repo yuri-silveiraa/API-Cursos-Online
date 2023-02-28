@@ -1,8 +1,9 @@
 const express = require('express')
 
-// const hello = require('./hello/routes')
+
 const courses = require('./courses/routes')
-// const users = require('./users/routes')
+const journeys = require('./journeys/routes')
+
 
 //const docs = require('./middlewares/docs')
 const logger = require('./middlewares/logger')
@@ -14,7 +15,8 @@ const router = express.Router()
 router.use(express.json())
 router.use(logger())
 router.use('/courses', courses)
-// router.use('/users', users)
+router.use('/journeys', journeys)
+
 
 router.use(errorHandler())
 
