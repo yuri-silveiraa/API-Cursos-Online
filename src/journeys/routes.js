@@ -9,88 +9,18 @@ const router = Router()
 const { journeysRepository } = require('./repository')
 const repository = journeysRepository()
 
-// Criar um curso 
-
-const CreateJouneySchema = {
-  body: Joi.object({
-    title: Joi.string().required(),
-    icon: Joi.string().required(),
-    thumb: Joi.string().required(),
-    description: Joi.string().max(1000),
-    slug: Joi.string().required(),
-  })
-}
-
-const createJourney = async (req, res) =>{
-    const journey = req.body
-    
-    const inserted = await repository.insert(journey)
-    console.log(inserted)
-    const location = `api/journey/${inserted.id}`
-    res
-      .status(201)
-      .header('Location', location)
-      .send(inserted)
-      
-  }
-
-router.post('/', validate(CreateJouneySchema) ,withAsyncErrorHandler(createJourney))
-
-// Update de um curso
-
-const UpdateJouneySchema = {
-  params: Joi.object({
-    id: Joi.required(),
-  }),
-  body: Joi.object({
-    title: Joi.string().required(),
-    icon: Joi.string().required(),
-    thumb: Joi.string().required(),
-    description: Joi.string().max(1000),
-    slug: Joi.string().required(),
-  })
-}
-
-const updateJourney = async (req, res) => {
-  const id = req.params.id
-
-  const body = req.body
-
-  const registered = await repository.get(id)
-
-  const journey = { ...registered, ...body, id }
-  const updated = await repository.update(journey)
-  res.status(200).send(updated)
-}
-
-
-router.put('/:id', validate(UpdateJouneySchema) ,withAsyncErrorHandler(updateJourney))
-
-// Delete de um curso
-
-const DeleteJourneySchema = {
-  params: Joi.object({
-    id: Joi.required(),
-  }),
-}
-
-const deleteJourney = async (req, res) => {
-  const id = req.params.id
-
-  await repository.get(id)
-
-  await repository.del(id)
-  res.status(204).send()
-}
-
-router.delete('/:id', validate(DeleteJourneySchema) ,withAsyncErrorHandler(deleteJourney))
-
-// Acessar um curso 
+// Acessar uma Jornada
 
 const listJourneys = async (_req, res) =>
   repository
     .list()
-    .then(Journeys => res.status(200).send({ Journeys }))
+    .then(journeys => res.status(200).send( 
+      journeys.map((elemento) => {
+      return {
+        id: elemento.id,
+        name: elemento.title
+      }
+      })))
 
 const GetJourneySchema = {
   params: Joi.object({

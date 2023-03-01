@@ -28,35 +28,9 @@ const SQLRepository = () => {
         .select('courses.*')
         .then(handleNotFound(journey_id))
 
-
-  
-    const insert = (course) =>
-    knex.transaction(tx => 
-      knex('journeys_courses')
-        .insert(course)
-        .then(([id]) =>  get(id, tx))
-      )
-  
-    const update = course =>
-      knex.transaction(tx =>
-        knex('journeys_courses')
-          .where({ id: course.id })
-          .update(course)
-          .then(() => get(course.id, tx))
-      )
-  
-    const del = id =>
-      knex('journeys_courses')
-        .where({ id })
-        .delete()
-        .then()
-    
     return {
         list,
         get,
-        insert,
-        update,
-        del,
           }
         
     }

@@ -11,7 +11,8 @@ const SQLRepository = () => {
   
     const list = () =>
       knex
-        .select('*')
+        .select('title')
+        .select('id')
         .from('journeys')
         .then()
   
@@ -22,33 +23,10 @@ const SQLRepository = () => {
         .where({ id })
         .then(handleNotFound(id))
   
-    const insert = (journey) =>
-    knex.transaction(tx => 
-      knex('journeys')
-        .insert(journey)
-        .then(([id]) =>  get(id, tx))
-      )
-  
-    const update = journey =>
-      knex.transaction(tx =>
-        knex('journeys')
-          .where({ id: journey.id })
-          .update(journey)
-          .then(() => get(journey.id, tx))
-      )
-  
-    const del = id =>
-      knex('journeys')
-        .where({ id })
-        .delete()
-        .then()
-    
+
     return {
         list,
         get,
-        insert,
-        update,
-        del,
           }
         
     }
