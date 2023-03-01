@@ -1,8 +1,6 @@
 const { Router } = require('express')
-const Joi = require('joi')
 
 const withAsyncErrorHandler = require('../middlewares/async-error')
-const validate = require('../middlewares/validate')
 
 const router = Router()
 
@@ -16,12 +14,6 @@ const listJourneys = async (_req, res) =>
     .list()
     .then(journeys => res.status(200).send(journeys))
 
-const GetJourneySchema = {
-  params: Joi.object({
-    id: Joi.required(),
-  }),
-}
-
 const getJourney = async (req, res) => {
   const id = req.params.id
 
@@ -31,6 +23,6 @@ const getJourney = async (req, res) => {
 }
 
 router.get('/',withAsyncErrorHandler(listJourneys))
-router.get('/:id', validate(GetJourneySchema) ,withAsyncErrorHandler(getJourney))
+router.get('/:id' ,withAsyncErrorHandler(getJourney))
 
 module.exports = router;

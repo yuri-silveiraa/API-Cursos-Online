@@ -6,17 +6,12 @@ const validate = require('../middlewares/validate')
 
 const router = Router()
 
-const { journeysRepository } = require('./repository')
-const repository = journeysRepository()
+const { LessonsRepository } = require('./repository')
+const repository = LessonsRepository()
 
-// acessar um journey_course 
+// acessar uma lesson 
 
-const listJourneys_courses = async (_req, res) =>
-  repository
-    .list()
-    .then(Journeys_courses => res.status(200).send({ Journeys_courses }))
-
-const GetJourneySchema = {
+const GetLessonschema = {
   params: Joi.object({
     id: Joi.required(),
   }),
@@ -30,7 +25,6 @@ const getjourney_course = async (req, res) => {
   res.status(200).send(journey)
 }
 
-router.get('/',withAsyncErrorHandler(listJourneys_courses))
-router.get('/:id', validate(GetJourneySchema) ,withAsyncErrorHandler(getjourney_course))
+router.get('/:id', validate(GetLessonschema) ,withAsyncErrorHandler(getjourney_course))
 
 module.exports = router;

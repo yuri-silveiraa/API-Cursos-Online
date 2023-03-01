@@ -11,18 +11,11 @@ class DomainError extends Error {
       this.resourceId = resourceId
     }
   }
-  class ValidationError extends DomainError {
-      constructor({ message = 'Invalid parameters', validations }) {
-        super(message)
-        this.validations = validations
-      }
-  }
 
   class ConflictError extends DomainError {
   }
   
-  module.exports = { 
-    ValidationError,
+  module.exports = {
     NotFoundError,
     ConflictError
    }
