@@ -17,7 +17,7 @@ const SQLRepository = () => {
    
     const get = (journey_id) =>
       knex
-        .select('*')
+        .select('courses.*','journeys_courses.journey_id')
         .from('courses')  
         .innerJoin('journeys_courses', 'journeys_courses.course_id', 'courses.id')
         .where('journey_id', '=', journey_id)  

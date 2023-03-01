@@ -10,7 +10,7 @@ const repository = coursesRepository()
 // Acessar um curso
 
 const getJourney_Course = async (req, res) => {
-  const journey_id = req.params.journey_id
+  const journey_id = req.params.journeyId
 
   const courses = await repository.get(journey_id)
   
@@ -18,6 +18,6 @@ const getJourney_Course = async (req, res) => {
   res.status(200).send(courses)
 }
 
-router.get('/:journey_id' ,withAsyncErrorHandler(getJourney_Course))
+router.get('/:journeyId' ,withAsyncErrorHandler(getJourney_Course))
 
 module.exports = router;
