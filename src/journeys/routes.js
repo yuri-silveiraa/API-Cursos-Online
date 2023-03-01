@@ -14,13 +14,7 @@ const repository = journeysRepository()
 const listJourneys = async (_req, res) =>
   repository
     .list()
-    .then(journeys => res.status(200).send( 
-      journeys.map((elemento) => {
-      return {
-        id: elemento.id,
-        name: elemento.title
-      }
-      })))
+    .then(journeys => res.status(200).send(journeys))
 
 const GetJourneySchema = {
   params: Joi.object({

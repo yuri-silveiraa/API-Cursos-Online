@@ -14,7 +14,12 @@ const SQLRepository = () => {
         .select('title')
         .select('id')
         .from('journeys')
-        .then()
+        .then(data => data.map((elemento) => {
+          return {
+            id: elemento.id,
+            name: elemento.title
+          }
+          }))
   
     const get = (id) =>
       knex
