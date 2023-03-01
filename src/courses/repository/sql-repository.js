@@ -14,19 +14,21 @@ const SQLRepository = () => {
         .select('*')
         .from('journeys_courses')
         .then()
-    
-    const courseId = () => 
-      knex
-        .select('id')
-        .from('courses')
-        .then()
    
     const get = (journey_id) =>
-      knex('journeys_courses')
-        .join('courses', 'journeys_courses.course_id','=', 'courses.id')
-        .where('courses.id', '=', courseId)  
-        .select('courses.*')
-        .then(handleNotFound(journey_id))
+      knex
+        .select('*')
+        .from('courses')  
+        .innerJoin('journeys_courses', 'journeys_courses.course_id', 'courses.id')
+        .where('journey_id', '=', journey_id)  
+        .then( data => data.map((elemento) => {
+          return {
+            id: elemento.id,
+            journey_id: elemento.journey_id,
+            name: elemento.title,
+            description: elemento.description
+          }
+          }) ,handleNotFound(journey_id))
 
     return {
         list,

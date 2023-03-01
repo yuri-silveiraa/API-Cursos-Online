@@ -1,7 +1,7 @@
 const express = require('express')
 
 
-const courses = require('./course/routes')
+const courses = require('./courses/routes')
 const journeys = require('./journeys/routes')
 
 
