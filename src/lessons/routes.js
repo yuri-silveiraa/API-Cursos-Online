@@ -11,7 +11,6 @@ const repository = lessonsRepository()
 
 const getLessons = async (req, res) => {
   const id = req.params.courseId
-
   const journey = await repository.get(id)
 
   res.status(200).send(journey)
