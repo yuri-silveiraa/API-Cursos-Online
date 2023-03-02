@@ -1,11 +1,9 @@
 const express = require('express')
 
-
 const courses = require('./courses/routes')
 const journeys = require('./journeys/routes')
 const lessons = require('./lessons/routes')
 
-//const docs = require('./middlewares/docs')
 const logger = require('./middlewares/logger')
 const errorHandler = require('./middlewares/error')
 
@@ -22,7 +20,6 @@ router.use('/courses', lessons)
 router.use(errorHandler())
 
 app.use('/api', router)
-//app.use('/docs', docs)
 
 app
   .listen(3000, '0.0.0.0', () => {
