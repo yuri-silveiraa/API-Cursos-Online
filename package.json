@@ -21,7 +21,8 @@
     "mysql2": "^2.3.3",
     "sqlite3": "^5.1.4",
     "js-yaml": "^4.1.0",
-    "swagger-ui-express": "^4.4.0"
+    "swagger-ui-express": "^4.4.0",
+    "dotenv": "^16.0.3"
   },
   "repository": {
     "type": "git",

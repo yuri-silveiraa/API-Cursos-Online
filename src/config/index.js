@@ -3,13 +3,7 @@ const immutable = Object.freeze
 
 const database = immutable({
   client: 'mysql2',
-  connection: {
-    host: 'localhost',
-    port: 3306,
-    user: 'staart',
-    password: 'staart',
-    database: 'Cursos',
-  },
+  connection: process.env.DB_URL,
   migrations: immutable({
     tableName: 'migrations',
   })
