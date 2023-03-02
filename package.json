@@ -9,7 +9,7 @@
     "seed:run": "node ./src/database",
     "migration:create": "knex migrate:make",
     "migration:run": "knex migrate:latest",
-    "build": "knex migrate:latest --knexfile=.knexfile.js && npm rung seed:run"
+    "build": "knex migrate:latest --knexfile=.knexfile.js && npm run seed:run"
   },
   "author": "Staart",
   "license": "ISC",
