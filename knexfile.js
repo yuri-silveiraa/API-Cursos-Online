@@ -1,5 +1,18 @@
 require('dotenv').config()
 
-const { config : database } = require('./src/config/index')
+module.exports = { 
+    development: {
+      client: 'mysql2',
+      connection: {
+        database: process.env.DB_URL,
+      },
+      pool: {
+        min: 2,
+        max: 10
+      },
+      migrations: {
+        tableName: 'migrations'
+      }
+    },
+  }
 
-module.exports = database
