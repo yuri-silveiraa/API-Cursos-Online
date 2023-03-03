@@ -1,5 +1,5 @@
-const config = require('../../knexfile');
-const knex = require('knex')(config);
+const development = require('../../knexfile').development;
+const knex = require('knex')(development);
 
 const files = [
   'journeys.js', 

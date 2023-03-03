@@ -1,6 +1,6 @@
 const { knex: Knex } = require('knex')
 
-const { database: config } = require('../../config/')
+const config = require('../../knexfile').development
 const { NotFoundError } = require('../../errors')
 
 const handleNotFound = id => ([journey_id]) =>
