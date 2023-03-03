@@ -8,8 +8,7 @@
     "dev": "nodemon ./src/index.js",
     "seed:run": "node ./src/database",
     "migration:create": "knex migrate:make",
-    "migration:run": "knex migrate:latest",
-    "build": "knex migrate:latest --knexfile=.knexfile.js && npm run seed:run"
+    "migration:run": "knex migrate:latest"
   },
   "author": "Staart",
   "license": "ISC",
