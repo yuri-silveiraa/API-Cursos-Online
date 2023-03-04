@@ -1,6 +1,6 @@
 const { knex: Knex } = require('knex')
 
-const config = require('../../knexfile').development
+const config = require('../../../knexfile').development
 const { NotFoundError } = require('../../errors')
 
 const SQLRepository = () => {
